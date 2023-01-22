@@ -1,1 +1,1 @@
-###  [Google maps API](https://thriving-kitsune-5d9083.netlify.app)
+###  [Google Maps API](https://thriving-kitsune-5d9083.netlify.app)
