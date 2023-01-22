@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Google Map</title>
+    <style>
+        #map {
+            height:400px;
+            width:100%;
+        }
+    </style>
+
+</head>
+<body>
+<h1>My Google Map</h1>
+<div id="map"></div>
+
+<script>
+    function initMap (){
+        let options = {
+            zoom:8,
+            center: {lat: 40.7128, lng: -74.0060}
+        }
+
+        let map = new google.maps.Map(document.getElementById("map"), options);
+
+        google.maps.event.addListener(map, "click", function(event){
+            addMarker({coord:event.latLng})
+        })
+
+
+        /*let marker = new google.maps.Marker({
+            position:{lat: 40.8094, lng: -72.6458},
+            map: map,
+            icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+        });
+
+        let infoWindow = new google.maps.InfoWindow({
+            content:"<h4>Westhampton Beach</h4>"
+        })
+        marker.addListener("click",function(){
+            infoWindow.open(map, marker)
+        });*/
+
+        let markers=[
+            {coord: {lat: 40.8094, lng: -72.6458},
+                iconImage: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+                content: "<h4>Westhampton Beach</h4>"
+            } ,
+            {coord: {lat: 41.0534, lng: -73.5387},
+                content: "<h4>Stamford</h4>"
+            },
+            {coord: {lat: 40.0821, lng: -74.2097},
+                content: "<h4>Lakewood</h4>"
+            }
+        ]
+
+        for (let i = 0; i <markers.length; i++) {
+            addMarker(markers[i]);
+        }
+
+       /* addMarker({coord: {lat: 40.8094, lng: -72.6458},
+        iconImage: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+            content: "<h4>Westhampton Beach</h4>"
+        })
+        addMarker({coord: {lat: 41.0534, lng: -73.5387},
+            content: "<h4>Stamford</h4>"
+        })
+        addMarker({coord: {lat: 40.0821, lng: -74.2097},
+            content: "<h4>Lakewood</h4>"
+        })*/
+
+        function addMarker(props) {
+            let marker = new google.maps.Marker({
+                position:props.coord,
+                map: map,
+                icon: props.iconImage
+            });
+
+            if(props.iconImage) {
+                marker.setIcon(props.iconImage);
+            }
+
+            if(props.content) {
+
+            }
+            let infoWindow = new google.maps.InfoWindow({
+                content:props.content,
+            });
+            marker.addListener("click",function(){
+                infoWindow.open(map, marker)
+            });
+        }
+    }
+
+</script>
+
+<script defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByimQEwCTToAMFWiUVJaPHD5_yA36syv4&callback=initMap"
+
+></script>
+</body>
+</html>
